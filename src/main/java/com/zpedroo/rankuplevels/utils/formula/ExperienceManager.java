@@ -6,8 +6,8 @@ public class ExperienceManager {
 
     public static int getLevel(double experience) {
         int level = 1;
-        while (experience > 0) {
-            experience -= getLevelExperience(++level);
+        while (experience >= getFullLevelExperience(level)) {
+            ++level;
         }
 
         return level;
@@ -16,7 +16,7 @@ public class ExperienceManager {
     public static double getFullLevelExperience(int level) {
         double requiredXP = 0;
         for (int i = 1; i <= level; i++) {
-            requiredXP += getLevelExperience(i);
+            requiredXP += getUpgradeLevelExperience(i);
         }
 
         return requiredXP;
@@ -26,5 +26,9 @@ public class ExperienceManager {
         if (level <= 1) return 0;
 
         return Math.floor(BASE_EXP + (BASE_EXP * Math.pow(level, EXPONENT)));
+    }
+
+    public static double getUpgradeLevelExperience(int level) {
+        return getLevelExperience(++level);
     }
 }
