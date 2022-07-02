@@ -50,10 +50,10 @@ public class PlayerData {
     }
 
     public String getReplacedLevelTag() {
-        TagInfo tagInfo = DataManager.getInstance().getTagInfoByLevel(level);
-        if (tagInfo == null) return "";
+        LevelInfo levelInfo = DataManager.getInstance().getLevelInfo(this.level);
+        if (levelInfo == null) return "";
 
-        return StringUtils.replace(tagInfo.getTag(), "{level}", String.valueOf(level));
+        return StringUtils.replace(levelInfo.getTag(), "{level}", String.valueOf(this.level));
     }
 
     public boolean isQueueUpdate() {
@@ -81,14 +81,17 @@ public class PlayerData {
     public void updateLevel() {
         final int oldLevel = level;
         int newLevel = ExperienceManager.getLevel(expAmount);
+        if (newLevel > MAX_LEVEL) newLevel = MAX_LEVEL;
         setLevel(newLevel);
 
         if (oldLevel == -1 || newLevel == oldLevel) return;
 
         Player player = getPlayer();
+        LevelInfo oldLevelInfo = DataManager.getInstance().getLevelInfo(oldLevel);
+        LevelInfo newLevelInfo = DataManager.getInstance().getLevelInfo(newLevel);
         updatePermissions();
 
-        PlayerUpgradeLevelEvent event = new PlayerUpgradeLevelEvent(player, oldLevel, newLevel);
+        PlayerUpgradeLevelEvent event = new PlayerUpgradeLevelEvent(player, oldLevel, newLevel, oldLevelInfo, newLevelInfo);
         Bukkit.getPluginManager().callEvent(event);
     }
 

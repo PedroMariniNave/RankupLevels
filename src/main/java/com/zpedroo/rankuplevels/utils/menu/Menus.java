@@ -8,6 +8,7 @@ import com.zpedroo.rankuplevels.utils.builder.InventoryUtils;
 import com.zpedroo.rankuplevels.utils.builder.ItemBuilder;
 import com.zpedroo.rankuplevels.utils.color.Colorize;
 import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
+import com.zpedroo.rankuplevels.utils.formula.ExperienceManager;
 import com.zpedroo.rankuplevels.utils.progress.ProgressConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -36,6 +37,7 @@ public class Menus extends InventoryUtils {
             ItemStack item = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Inventory.items." + items, new String[]{
                     "{player}",
                     "{xp}",
+                    "{next_xp}",
                     "{level}",
                     "{level_tag}",
                     "{progress_bar}",
@@ -43,6 +45,7 @@ public class Menus extends InventoryUtils {
             }, new String[]{
                     player.getName(),
                     NumberFormatter.getInstance().format(data.getExpAmount()),
+                    NumberFormatter.getInstance().format(ExperienceManager.getFullLevelExperience(data.getLevel())),
                     NumberFormatter.getInstance().formatThousand(data.getLevel()),
                     data.getReplacedLevelTag(),
                     ProgressConverter.convert(data.getExpAmount()),
@@ -79,6 +82,7 @@ public class Menus extends InventoryUtils {
             ItemStack item = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Item", new String[]{
                     "{player}",
                     "{xp}",
+                    "{next_xp}",
                     "{level}",
                     "{level_tag}",
                     "{progress_bar}",
@@ -87,6 +91,7 @@ public class Menus extends InventoryUtils {
             }, new String[]{
                     Bukkit.getOfflinePlayer(data.getUniqueId()).getName(),
                     NumberFormatter.getInstance().format(data.getExpAmount()),
+                    NumberFormatter.getInstance().format(ExperienceManager.getFullLevelExperience(data.getLevel())),
                     NumberFormatter.getInstance().formatThousand(data.getLevel()),
                     data.getReplacedLevelTag(),
                     ProgressConverter.convert(data.getExpAmount()),

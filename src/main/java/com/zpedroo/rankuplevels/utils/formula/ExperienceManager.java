@@ -22,13 +22,14 @@ public class ExperienceManager {
         return requiredXP;
     }
 
+    public static double getUpgradeLevelExperience(int level) {
+        return getLevelExperience(++level);
+    }
+
     public static double getLevelExperience(int level) {
         if (level <= 1) return 0;
 
         return Math.floor(BASE_EXP + (BASE_EXP * Math.pow(level, EXPONENT)));
     }
 
-    public static double getUpgradeLevelExperience(int level) {
-        return getLevelExperience(++level);
-    }
 }

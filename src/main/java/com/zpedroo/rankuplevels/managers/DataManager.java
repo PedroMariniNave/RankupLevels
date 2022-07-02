@@ -4,7 +4,7 @@ import com.zpedroo.rankuplevels.managers.cache.DataCache;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
 import com.zpedroo.rankuplevels.objects.Clothes;
 import com.zpedroo.rankuplevels.objects.PlayerData;
-import com.zpedroo.rankuplevels.objects.TagInfo;
+import com.zpedroo.rankuplevels.objects.LevelInfo;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,10 +22,12 @@ public class DataManager {
         instance = this;
     }
 
+    @NotNull
     public PlayerData getPlayerData(@NotNull Player player) {
         return getPlayerData(player.getUniqueId());
     }
 
+    @NotNull
     public PlayerData getPlayerData(@NotNull UUID uuid) {
         PlayerData data = dataCache.getPlayersData().get(uuid);
         if (data == null) {
@@ -36,20 +38,27 @@ public class DataManager {
         return data;
     }
 
-    public TagInfo getTagInfoByLevel(int level) {
-        for (TagInfo tagInfo : dataCache.getTags()) {
+    @Nullable
+    public LevelInfo getLevelInfo(int level) {
+        for (LevelInfo tagInfo : dataCache.getLevelsInfo()) {
             if (level >= tagInfo.getMinLevel() && level <= tagInfo.getMaxLevel()) return tagInfo;
         }
 
         return null;
     }
 
+    @Nullable
     public Clothes getClothesByLevel(int level) {
+        Clothes clothesFound = null;
         for (Clothes clothes : dataCache.getClothes()) {
-            if (level >= clothes.getRequiredLevel()) return clothes;
+            if (level >= clothes.getRequiredLevel()) {
+                if (clothesFound == null || clothes.getRequiredLevel() > clothesFound.getRequiredLevel()) {
+                    clothesFound = clothes;
+                }
+            }
         }
 
-        return null;
+        return clothesFound;
     }
 
     public void savePlayerData(@NotNull Player player) {

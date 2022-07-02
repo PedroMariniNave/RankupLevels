@@ -1,5 +1,6 @@
 package com.zpedroo.rankuplevels.api.events;
 
+import com.zpedroo.rankuplevels.objects.LevelInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.bukkit.entity.Player;
@@ -13,6 +14,8 @@ public class PlayerUpgradeLevelEvent extends Event {
     private final Player player;
     private final int oldLevel;
     private final int newLevel;
+    private final LevelInfo oldLevelInfo;
+    private final LevelInfo newLevelInfo;
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
     @Override

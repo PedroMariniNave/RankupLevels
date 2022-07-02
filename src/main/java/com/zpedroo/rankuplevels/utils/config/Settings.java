@@ -19,4 +19,10 @@ public class Settings {
     public static final boolean ADD_LOWER_RANKS_PERMISSION = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.add-lower-ranks-permission");
 
     public static final int MAX_LEVEL = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.max-level");
+
+    public static final boolean THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.enabled");
+
+    public static final boolean DOUBLE_THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.double");
+
+    public static final boolean SILENT_THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.silent");
 }

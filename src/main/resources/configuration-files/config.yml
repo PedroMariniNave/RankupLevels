@@ -13,24 +13,70 @@ Settings:
   save-interval: 600 # segundos
   rank-permission: rank.{level} # permissão que será adicionada ao jogador
   add-lower-ranks-permission: true # adicionar as permissões dos ranks anteriores
-  max-level: 500 # -1 = infinito
-  #
-  # Placeholders disponíveis:
-  #
-  # {player} - Nick do jogador
-  # {old_level} - Nível antigo
-  # {new_level} - Novo nível
-  #
-  upgrade-commands:
-    - 'crates give {player} Rankup {new_level}'
-  tags:
-    1-20: '&7[{level}]'
-    21-50: '&a[{level}]'
-    51-100: '&b[{level}]'
-    101-200: '&5[{level}]'
-    201-300: '&c[{level}]'
-    301-400: '&4[{level}]'
-    401-500: '&6[{level}]'
+  max-level: 500
+  thunder: # raio quando o jogador evoluir de nível
+    enabled: true
+    double: true # double thunder = efeito sonoro extra
+    silent: false
+
+#
+# Placeholders disponíveis:
+#
+# {level} - Nível do jogador (tag)
+# {player} - Nick do jogador (comandos | mensagens | action-bar)
+# {old_level} - Nível antigo (comandos | mensagens | action-bar)
+# {new_level} - Novo nível (comandos | mensagens | action-bar)
+# {old_level_tag} - Tag do nível antigo (comandos | mensagens | action-bar)
+# {new_level_tag} - Tag do novo nível (comandos | mensagens | action-bar)
+#
+Levels:
+    1-20:
+      tag: '&7[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 3'
+      action-bar: '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+    21-50:
+      tag: '&a[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 4'
+      action-bar: '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+    51-100:
+      tag: '&b[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 5'
+      action-bar: '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+    101-200:
+      tag: '&5[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 6'
+      messages:
+        - ''
+        - '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+        - ''
+    201-300:
+      tag: '&c[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 7'
+      messages:
+        - ''
+        - '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+        - ''
+    301-400:
+      tag: '&4[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 8'
+      messages:
+        - ''
+        - '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+        - ''
+    401-500:
+      tag: '&6[Lv. {level}]'
+      commands:
+        - 'crates give {player} Rankup 10'
+      messages:
+        - ''
+        - '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
+        - ''
 
 Progress:
   display-amount: 10
@@ -39,7 +85,7 @@ Progress:
   incomplete-color: '&8'
 
 Experience-Formula: # base + (base * level ^ exponent)
-  base-exp: 2500
+  base-exp: 500
   exponent: 1.8
 
 Titles:
