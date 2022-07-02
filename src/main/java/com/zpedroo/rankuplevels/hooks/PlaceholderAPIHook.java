@@ -41,7 +41,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
                 return data.getReplacedLevelTag();
             case "PROGRESS_BAR":
                 return ProgressConverter.convert(data.getExpAmount());
-            case "PROGRESS_PERCENTAGE":
+            case "PERCENTAGE":
                 return NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount()));
             case "EXP":
                 return NumberFormatter.getInstance().format(data.getExpAmount());

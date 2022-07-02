@@ -9,10 +9,20 @@ MySQL:
 Settings:
   command: rankup
   aliases: [ranks, level, levels, nivel, niveis]
+  admin-permission: ranks.admin
   save-interval: 600 # segundos
   rank-permission: rank.{level} # permissão que será adicionada ao jogador
   add-lower-ranks-permission: true # adicionar as permissões dos ranks anteriores
   max-level: 500 # -1 = infinito
+  #
+  # Placeholders disponíveis:
+  #
+  # {player} - Nick do jogador
+  # {old_level} - Nível antigo
+  # {new_level} - Novo nível
+  #
+  upgrade-commands:
+    - 'crates give {player} Rankup {new_level}'
   tags:
     1-20: '&7[{level}]'
     21-50: '&a[{level}]'
@@ -29,8 +39,8 @@ Progress:
   incomplete-color: '&8'
 
 Experience-Formula: # base + (base * level ^ exponent)
-  base-exp: 500
-  exponent: 1.04
+  base-exp: 2500
+  exponent: 1.8
 
 Titles:
   upgrade:

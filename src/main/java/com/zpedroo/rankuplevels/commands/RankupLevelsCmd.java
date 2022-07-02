@@ -22,6 +22,7 @@ public class RankupLevelsCmd implements CommandExecutor {
             BigInteger amount = null;
             switch (args[0].toUpperCase()) {
                 case "GIVE":
+                    if (args.length < 3) break;
                     if (!sender.hasPermission(Settings.ADMIN_PERMISSION)) break;
 
                     target = Bukkit.getPlayer(args[1]);
@@ -33,6 +34,7 @@ public class RankupLevelsCmd implements CommandExecutor {
                     RankupLevelsAPI.addExp(target, amount.doubleValue());
                     return true;
                 case "SET":
+                    if (args.length < 3) break;
                     if (!sender.hasPermission(Settings.ADMIN_PERMISSION)) break;
 
                     target = Bukkit.getPlayer(args[1]);

@@ -69,7 +69,7 @@ public class NumberFormatter {
     }
 
     public String formatDecimal(double number) {
-        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ITALIAN);
         formatter.setMinimumFractionDigits(2);
         formatter.setMaximumFractionDigits(2);
 

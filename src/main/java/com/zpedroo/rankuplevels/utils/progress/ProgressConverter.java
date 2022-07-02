@@ -12,8 +12,8 @@ public class ProgressConverter {
         int completedProgressBars = (int) (DISPLAY_AMOUNT * percentage);
         int incompleteProgressBars = DISPLAY_AMOUNT - completedProgressBars;
 
-        return Strings.repeat(COMPLETE_COLOR + SYMBOL, completedProgressBars) +
-                Strings.repeat(INCOMPLETE_COLOR + SYMBOL, incompleteProgressBars);
+        return COMPLETE_COLOR + Strings.repeat(SYMBOL, completedProgressBars) +
+                INCOMPLETE_COLOR + Strings.repeat(SYMBOL, incompleteProgressBars);
     }
 
     public static double getPercentage(double experience) {
@@ -24,6 +24,8 @@ public class ProgressConverter {
         double requiredXPToUpgradeLevel = xpToNextLevel - xpToActualLevel;
         double has = experience - xpToActualLevel;
 
-        return (has / requiredXPToUpgradeLevel) * 100;
+        double percentage = (has / requiredXPToUpgradeLevel) * 100;
+
+        return percentage > 0 ? percentage : 0;
     }
 }
