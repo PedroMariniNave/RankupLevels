@@ -1,0 +1,23 @@
+Inventory:
+  title: "Níveis"
+  size: 27
+  items:
+    1:
+      type: SKULL_ITEM
+      owner: "{player}"
+      name: "&6{player}"
+      lore:
+        - '&7Abaixo estão suas informações:'
+        - ''
+        - ' &8▶ &7Nível: &f{level} {progress_bar} &7{progress_percentage}%'
+        - ' &8▶ &7XP: &f{xp}'
+      slot: 11
+    2:
+      action: TOP
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjRhZjhkNTc1ZjBhNTI0ZWY2NmEyMTU3M2U4YTRhOGFjN2Q2NDBiMDBkOThlMmU5Mzc0ZTYwNDcwZTdjODZmMCJ9fX0=
+      name: "&6Top Níveis"
+      lore:
+        - '&7Clique para ver os jogadores'
+        - '&7que mais possuem níveis!'
+      slot: 15

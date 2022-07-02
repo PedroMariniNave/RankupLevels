@@ -1,0 +1,15 @@
+Inventory:
+  title: "Níveis - Top"
+  size: 36
+  slots: 11,12,13,14,15,20,21,22,23,24
+
+Item:
+  type: SKULL_ITEM
+  owner: "{player}"
+  name: "&6{player} &7[&f{pos}º&7]"
+  lore:
+    - '&7Abaixo estão as informações'
+    - '&7do jogador:'
+    - ''
+    - ' &8▶ &7Nível: &f{level} {progress_bar} &7{progress_percentage}%'
+    - ' &8▶ &7XP: &f{xp}'

@@ -1,0 +1,58 @@
+MySQL:
+  enabled: false
+  host: 'localhost'
+  database: 'db'
+  username: 'user'
+  password: 'pass'
+  port: 3306
+
+Settings:
+  command: rankup
+  aliases: [ranks, level, levels, nivel, niveis]
+  save-interval: 600 # segundos
+  rank-permission: rank.{level} # permissão que será adicionada ao jogador
+  add-lower-ranks-permission: true # adicionar as permissões dos ranks anteriores
+  max-level: 500 # -1 = infinito
+  tags:
+    1-20: '&7[{level}]'
+    21-50: '&a[{level}]'
+    51-100: '&b[{level}]'
+    101-200: '&5[{level}]'
+    201-300: '&c[{level}]'
+    301-400: '&4[{level}]'
+    401-500: '&6[{level}]'
+
+Progress:
+  display-amount: 10
+  symbol: '❙'
+  complete-color: '&a'
+  incomplete-color: '&8'
+
+Experience-Formula: # base + (base * level ^ exponent)
+  base-exp: 500
+  exponent: 1.04
+
+Titles:
+  upgrade:
+    title: '&6&lUP!'
+    subtitle: '&7Você evoluiu de nível!'
+
+Sounds:
+  upgrade:
+    enabled: true
+    sound: LEVEL_UP
+    volume: 10
+    pitch: 4
+
+Number-Formatter:
+  - "k"
+  - "M"
+  - "B"
+  - "T"
+  - "Q"
+  - "QQ"
+  - "S"
+  - "SS"
+  - "O"
+  - "N"
+  - "D"

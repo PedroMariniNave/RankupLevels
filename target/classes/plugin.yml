@@ -1,0 +1,6 @@
+name: RankupLevels
+description: Only a simple rankup levels plugin.
+version: 1.0
+author: zPedroo_
+main: com.zpedroo.rankuplevels.RankupLevels
+softdepend: [Legendchat, PlaceholderAPI]
