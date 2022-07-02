@@ -2,6 +2,7 @@ package com.zpedroo.rankuplevels.managers;
 
 import com.zpedroo.rankuplevels.managers.cache.DataCache;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
+import com.zpedroo.rankuplevels.objects.Clothes;
 import com.zpedroo.rankuplevels.objects.PlayerData;
 import com.zpedroo.rankuplevels.objects.TagInfo;
 import org.bukkit.entity.Player;
@@ -38,6 +39,14 @@ public class DataManager {
     public TagInfo getTagInfoByLevel(int level) {
         for (TagInfo tagInfo : dataCache.getTags()) {
             if (level >= tagInfo.getMinLevel() && level <= tagInfo.getMaxLevel()) return tagInfo;
+        }
+
+        return null;
+    }
+
+    public Clothes getClothesByLevel(int level) {
+        for (Clothes clothes : dataCache.getClothes()) {
+            if (level >= clothes.getRequiredLevel()) return clothes;
         }
 
         return null;

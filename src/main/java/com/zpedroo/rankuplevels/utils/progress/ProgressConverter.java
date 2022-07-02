@@ -24,8 +24,6 @@ public class ProgressConverter {
         double requiredXPToUpgradeLevel = xpToNextLevel - xpToActualLevel;
         double has = experience - xpToActualLevel;
 
-        double percentage = (has / requiredXPToUpgradeLevel) * 100;
-
-        return percentage > 0 ? percentage : 0;
+        return (has / requiredXPToUpgradeLevel) * 100;
     }
 }

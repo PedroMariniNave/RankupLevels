@@ -1,5 +1,6 @@
 package com.zpedroo.rankuplevels.utils;
 
+import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class FileUtils {
 
@@ -105,56 +107,55 @@ public class FileUtils {
         }
     }
 
+    @Getter
     public enum Files {
-        CONFIG("config", "configuration-files", ""),
-        EXPERIENCE("experience", "configuration-files", ""),
-        MAIN("main", "menus", "menus"),
-        TOP("top", "menus", "menus");
+        FIRST_CLOTHES("first_clothes", "clothes", "clothes", true),
+        CONFIG("config", "configuration-files", "", false),
+        EXPERIENCE("experience", "configuration-files", "", false),
+        MAIN("main", "menus", "menus", false),
+        TOP("top", "menus", "menus", false);
 
         private final String name;
         private final String resource;
         private final String folder;
+        private final boolean requireEmpty;
 
-        Files(String name, String resource, String folder) {
+        Files(String name, String resource, String folder, boolean requireEmpty) {
             this.name = name;
             this.resource = resource;
             this.folder = folder;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getResource() {
-            return resource;
-        }
-
-        public String getFolder() {
-            return folder;
+            this.requireEmpty = requireEmpty;
         }
     }
 
     public class FileManager {
 
-        private final java.io.File file;
+        private final File file;
         private FileConfiguration fileConfig;
 
         public FileManager(Files files) {
-            this.file = new java.io.File(plugin.getDataFolder() + (files.getFolder().isEmpty() ? "" : "/" + files.getFolder()), files.getName() + ".yml");
+            this.file = new File(plugin.getDataFolder() + (files.getFolder().isEmpty() ? "" : "/" + files.getFolder()), files.getName() + ".yml");
 
-            if (!this.file.exists()) {
+            if (!file.exists()) {
+                if (files.isRequireEmpty()) {
+                    File folder = new File(plugin.getDataFolder(), files.getFolder());
+                    if (folder.listFiles() != null) {
+                        if (Stream.of(folder.listFiles()).map(YamlConfiguration::loadConfiguration).count() > 0) return;
+                    }
+                }
+
                 try {
-                    this.file.getParentFile().mkdirs();
-                    this.file.createNewFile();
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
 
-                    copy(plugin.getResource((files.getResource().isEmpty() ? "" : files.getResource() + "/") + files.getName() + ".yml"), this.file);
+                    copy(plugin.getResource((files.getResource().isEmpty() ? "" : files.getResource() + "/") + files.getName() + ".yml"), file);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
 
             try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(this.file), StandardCharsets.UTF_8));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
                 fileConfig = YamlConfiguration.loadConfiguration(reader);
                 reader.close();
             } catch (Exception ex) {
