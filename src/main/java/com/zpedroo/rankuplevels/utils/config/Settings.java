@@ -18,7 +18,13 @@ public class Settings {
 
     public static final boolean ADD_LOWER_RANKS_PERMISSION = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.add-lower-ranks-permission");
 
+    public static final int DEFAULT_LEVEL = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.default-level");
+
     public static final int MAX_LEVEL = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.max-level");
+
+    public static final int PROGRESS_DIGITS = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.progress-digits");
+
+    public static final int CLOTHES_DIGITS = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.clothes-digits");
 
     public static final boolean THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.enabled");
 

@@ -1,5 +1,6 @@
 package com.zpedroo.rankuplevels.api.events;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.bukkit.entity.Player;
@@ -8,6 +9,7 @@ import org.bukkit.event.HandlerList;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
 public class PlayerGainXpEvent extends Event {
 
     private final Player player;

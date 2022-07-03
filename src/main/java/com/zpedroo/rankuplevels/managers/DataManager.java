@@ -3,9 +3,12 @@ package com.zpedroo.rankuplevels.managers;
 import com.zpedroo.rankuplevels.managers.cache.DataCache;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
 import com.zpedroo.rankuplevels.objects.Clothes;
-import com.zpedroo.rankuplevels.objects.PlayerData;
+import com.zpedroo.rankuplevels.objects.ClothesItem;
 import com.zpedroo.rankuplevels.objects.LevelInfo;
+import com.zpedroo.rankuplevels.objects.PlayerData;
+import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,7 +53,7 @@ public class DataManager {
     @Nullable
     public Clothes getClothesByLevel(int level) {
         Clothes clothesFound = null;
-        for (Clothes clothes : dataCache.getClothes()) {
+        for (Clothes clothes : dataCache.getClothes().values()) {
             if (level >= clothes.getRequiredLevel()) {
                 if (clothesFound == null || clothes.getRequiredLevel() > clothesFound.getRequiredLevel()) {
                     clothesFound = clothes;
@@ -59,6 +62,34 @@ public class DataManager {
         }
 
         return clothesFound;
+    }
+
+    @Nullable
+    public Clothes getClothesByName(String name) {
+        return dataCache.getClothes().get(name);
+    }
+
+    @Nullable
+    public ClothesItem getClothesItem(@NotNull ItemStack item) {
+        NBTItem nbt = new NBTItem(item);
+        if (!nbt.hasKey("ClothesItemId")) return null;
+
+        UUID id = nbt.getObject("ClothesItemId", UUID.class);
+        ClothesItem clothesItem = dataCache.getClothesItem().get(id);
+        if (clothesItem == null) {
+            String name = nbt.getString("ClothesName");
+            double experience = nbt.getDouble("ClothesExperience");
+            Clothes clothes = getClothesByName(name);
+            if (clothes == null) return null;
+
+            ItemStack defaultItem = clothes.getSimilarItem(item);
+            if (defaultItem == null) return null;
+
+            clothesItem = new ClothesItem(clothes, defaultItem, experience);
+            clothesItem.cache();
+        }
+
+        return clothesItem;
     }
 
     public void savePlayerData(@NotNull Player player) {

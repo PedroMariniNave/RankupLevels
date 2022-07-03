@@ -1,7 +1,9 @@
 package com.zpedroo.rankuplevels.objects;
 
 import com.zpedroo.rankuplevels.RankupLevels;
+import com.zpedroo.rankuplevels.api.events.PlayerGainXpEvent;
 import com.zpedroo.rankuplevels.api.events.PlayerUpgradeLevelEvent;
+import com.zpedroo.rankuplevels.enums.FormulaType;
 import com.zpedroo.rankuplevels.managers.DataManager;
 import com.zpedroo.rankuplevels.utils.config.Settings;
 import com.zpedroo.rankuplevels.utils.formula.ExperienceManager;
@@ -65,7 +67,12 @@ public class PlayerData {
     }
 
     public void addExp(double amount) {
-        this.setExpAmount(expAmount + amount);
+        Player player = getPlayer();
+        PlayerGainXpEvent event = new PlayerGainXpEvent(player, amount);
+        Bukkit.getPluginManager().callEvent(event);
+
+        final double modifiedXpAmount = event.getXpAmount();
+        this.setExpAmount(expAmount + modifiedXpAmount);
     }
 
     public void setExpAmount(double expAmount) {
@@ -80,7 +87,7 @@ public class PlayerData {
 
     public void updateLevel() {
         final int oldLevel = level;
-        int newLevel = ExperienceManager.getLevel(expAmount);
+        int newLevel = ExperienceManager.getLevel(expAmount, FormulaType.PLAYER_LEVEL);
         if (newLevel > MAX_LEVEL) newLevel = MAX_LEVEL;
         setLevel(newLevel);
 

@@ -1,5 +1,6 @@
 package com.zpedroo.rankuplevels;
 
+import com.zpedroo.rankuplevels.commands.ClothesCmd;
 import com.zpedroo.rankuplevels.commands.RankupLevelsCmd;
 import com.zpedroo.rankuplevels.hooks.PlaceholderAPIHook;
 import com.zpedroo.rankuplevels.listeners.PlayerGeneralListeners;
@@ -20,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -50,6 +52,7 @@ public class RankupLevels extends JavaPlugin {
         registerHooks();
         registerListeners();
         registerCommand(COMMAND, ALIASES, new RankupLevelsCmd());
+        registerCommand("clothes", Arrays.asList("roupa", "roupas"), new ClothesCmd());
     }
 
     public void onDisable() {

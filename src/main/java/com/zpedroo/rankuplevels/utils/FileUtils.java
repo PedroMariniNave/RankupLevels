@@ -110,6 +110,7 @@ public class FileUtils {
     @Getter
     public enum Files {
         FIRST_CLOTHES("first_clothes", "clothes", "clothes", true),
+        SECOND_CLOTHES("second_clothes", "clothes", "clothes", true),
         CONFIG("config", "configuration-files", "", false),
         EXPERIENCE("experience", "configuration-files", "", false),
         MAIN("main", "menus", "menus", false),

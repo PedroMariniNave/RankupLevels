@@ -13,7 +13,10 @@ Settings:
   save-interval: 600 # segundos
   rank-permission: rank.{level} # permissão que será adicionada ao jogador
   add-lower-ranks-permission: true # adicionar as permissões dos ranks anteriores
+  default-level: 1
   max-level: 500
+  progress-digits: 2
+  clothes-digits: 4
   thunder: # raio quando o jogador evoluir de nível
     enabled: true
     double: true # double thunder = efeito sonoro extra
@@ -78,6 +81,18 @@ Levels:
         - '&7O jogador &f{player} &7evoluiu para o {new_level_tag}&7!'
         - ''
 
+Messages:
+  new-level:
+    - ''
+    - ' &eSua armadura acaba de ser evoluída!'
+    - ' &7&mNível {old_level}&8 ➟ &7Nível {new_level} &8(Novo bônus de {new_bonus}x)'
+    - ''
+  new-clothes:
+    - ''
+    - ' &eUm novo visual foi adicionado a sua roupa!'
+    - ' &7Chique... E confortável.'
+    - ''
+
 Progress:
   display-amount: 10
   symbol: '❙'
@@ -85,16 +100,25 @@ Progress:
   incomplete-color: '&8'
 
 Experience-Formula: # base + (base * level ^ exponent)
-  base-exp: 500
-  exponent: 1.8
+  player-level:
+    base-exp: 500
+    exponent: 1.8
+  clothes-level:
+    base-exp: 100
+    exponent: 1.5
 
 Titles:
-  upgrade:
+  rank-up:
     title: '&6&lUP!'
     subtitle: '&7Você evoluiu de nível!'
 
 Sounds:
-  upgrade:
+  rank-up:
+    enabled: true
+    sound: LEVEL_UP
+    volume: 10
+    pitch: 4
+  armor-up:
     enabled: true
     sound: LEVEL_UP
     volume: 10

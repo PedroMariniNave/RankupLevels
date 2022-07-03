@@ -3,6 +3,7 @@ package com.zpedroo.rankuplevels.managers.cache;
 import com.zpedroo.rankuplevels.RankupLevels;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
 import com.zpedroo.rankuplevels.objects.Clothes;
+import com.zpedroo.rankuplevels.objects.ClothesItem;
 import com.zpedroo.rankuplevels.objects.PlayerData;
 import com.zpedroo.rankuplevels.objects.LevelInfo;
 import com.zpedroo.rankuplevels.utils.FileUtils;
@@ -23,8 +24,9 @@ import java.util.*;
 public class DataCache {
 
     private final Map<UUID, PlayerData> playersData = new HashMap<>(256);
+    private final Map<UUID, ClothesItem> clothesItem = new HashMap<>(64);
+    private final Map<String, Clothes> clothes = getClothesFromFolder();
     private final List<LevelInfo> levelsInfo = getLevelsFromConfig();
-    private final List<Clothes> clothes = getClothesFromFolder();
     private List<PlayerData> topRanks = null;
 
     public DataCache() {
@@ -55,15 +57,16 @@ public class DataCache {
     }
 
     @NotNull
-    private List<Clothes> getClothesFromFolder() {
+    private Map<String, Clothes> getClothesFromFolder() {
         File folder = new File(RankupLevels.get().getDataFolder(), "/clothes");
         File[] files = folder.listFiles((file, name) -> name.endsWith(".yml"));
-        List<Clothes> ret = new ArrayList<>(files == null ? 0 : files.length);
+        Map<String, Clothes> ret = new HashMap<>(files == null ? 0 : files.length);
         if (files == null) return ret;
 
         for (File file : files) {
             FileConfiguration fileConfig = YamlConfiguration.loadConfiguration(file);
 
+            String name = file.getName().replace(".yml", "");
             int requiredLevel = fileConfig.getInt("Clothes-Settings.required-level", 1);
             double bonus = fileConfig.getDouble("Clothes-Settings.bonus", 0);
             ItemStack[] items = new ItemStack[4];
@@ -73,7 +76,7 @@ public class DataCache {
                 items[index++] = item;
             }
 
-            ret.add(new Clothes(requiredLevel, bonus, items));
+            ret.put(name, new Clothes(name, requiredLevel, bonus, items));
         }
 
         return ret;

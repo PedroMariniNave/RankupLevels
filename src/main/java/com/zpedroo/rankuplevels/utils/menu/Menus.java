@@ -1,5 +1,6 @@
 package com.zpedroo.rankuplevels.utils.menu;
 
+import com.zpedroo.rankuplevels.enums.FormulaType;
 import com.zpedroo.rankuplevels.managers.DataManager;
 import com.zpedroo.rankuplevels.objects.PlayerData;
 import com.zpedroo.rankuplevels.utils.FileUtils;
@@ -45,11 +46,11 @@ public class Menus extends InventoryUtils {
             }, new String[]{
                     player.getName(),
                     NumberFormatter.getInstance().format(data.getExpAmount()),
-                    NumberFormatter.getInstance().format(ExperienceManager.getFullLevelExperience(data.getLevel())),
+                    NumberFormatter.getInstance().format(ExperienceManager.getFullLevelExperience(data.getLevel(), FormulaType.PLAYER_LEVEL)),
                     NumberFormatter.getInstance().formatThousand(data.getLevel()),
                     data.getReplacedLevelTag(),
-                    ProgressConverter.convert(data.getExpAmount()),
-                    NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount()))
+                    ProgressConverter.convert(data.getExpAmount(), FormulaType.PLAYER_LEVEL),
+                    NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount(), FormulaType.PLAYER_LEVEL))
             }).build();
             int slot = FileUtils.get().getInt(file, "Inventory.items." + items + ".slot");
 
@@ -91,11 +92,11 @@ public class Menus extends InventoryUtils {
             }, new String[]{
                     Bukkit.getOfflinePlayer(data.getUniqueId()).getName(),
                     NumberFormatter.getInstance().format(data.getExpAmount()),
-                    NumberFormatter.getInstance().format(ExperienceManager.getFullLevelExperience(data.getLevel())),
+                    NumberFormatter.getInstance().format(ExperienceManager.getFullLevelExperience(data.getLevel(), FormulaType.PLAYER_LEVEL)),
                     NumberFormatter.getInstance().formatThousand(data.getLevel()),
                     data.getReplacedLevelTag(),
-                    ProgressConverter.convert(data.getExpAmount()),
-                    NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount())),
+                    ProgressConverter.convert(data.getExpAmount(), FormulaType.PLAYER_LEVEL),
+                    NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount(), FormulaType.PLAYER_LEVEL)),
                     String.valueOf(pos)
             }).build();
 

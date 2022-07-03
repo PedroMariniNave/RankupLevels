@@ -1,5 +1,6 @@
 package com.zpedroo.rankuplevels.hooks;
 
+import com.zpedroo.rankuplevels.enums.FormulaType;
 import com.zpedroo.rankuplevels.managers.DataManager;
 import com.zpedroo.rankuplevels.objects.PlayerData;
 import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
@@ -40,9 +41,9 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
             case "LEVEL_TAG":
                 return data.getReplacedLevelTag();
             case "PROGRESS_BAR":
-                return ProgressConverter.convert(data.getExpAmount());
+                return ProgressConverter.convert(data.getExpAmount(), FormulaType.PLAYER_LEVEL);
             case "PERCENTAGE":
-                return NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount()));
+                return NumberFormatter.getInstance().formatDecimal(ProgressConverter.getPercentage(data.getExpAmount(), FormulaType.PLAYER_LEVEL));
             case "EXP":
                 return NumberFormatter.getInstance().format(data.getExpAmount());
         }

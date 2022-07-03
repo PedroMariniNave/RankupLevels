@@ -5,12 +5,14 @@ import com.mojang.authlib.properties.Property;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
@@ -109,6 +111,18 @@ public class ItemBuilder {
             builder.hideAttributes();
         }
 
+        if (file.contains(where + ".color")) {
+            String str = file.getString(where + ".color");
+            String[] split = str.split(":");
+            if (split.length >= 3) {
+                int red = Integer.parseInt(split[0]);
+                int green = Integer.parseInt(split[1]);
+                int blue = Integer.parseInt(split[2]);
+
+                builder.setColor(red, green, blue);
+            }
+        }
+
         return builder;
     }
 
@@ -187,6 +201,17 @@ public class ItemBuilder {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder setColor(int red, int green, int blue) {
+        if (!(item.getItemMeta() instanceof LeatherArmorMeta)) return this;
+
+        LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+        if (meta == null) return this;
+
+        meta.setColor(Color.fromRGB(red, green, blue));
         item.setItemMeta(meta);
         return this;
     }

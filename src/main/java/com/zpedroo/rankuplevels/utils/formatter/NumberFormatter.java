@@ -9,6 +9,8 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.*;
 
+import static com.zpedroo.rankuplevels.utils.config.Settings.PROGRESS_DIGITS;
+
 public class NumberFormatter {
 
     private static NumberFormatter instance;
@@ -69,10 +71,20 @@ public class NumberFormatter {
     }
 
     public String formatDecimal(double number) {
-        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ITALIAN);
-        formatter.setMinimumFractionDigits(2);
-        formatter.setMaximumFractionDigits(2);
+        return formatDecimal(number, PROGRESS_DIGITS);
+    }
 
+    public String formatDecimal(double number, int digitsAmount) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < digitsAmount; ++i) {
+            builder.append("#");
+        }
+
+        DecimalFormat formatter = new DecimalFormat("##." + builder);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+
+        symbols.setDecimalSeparator('.');
+        formatter.setDecimalFormatSymbols(symbols);
         return formatter.format(number);
     }
 
