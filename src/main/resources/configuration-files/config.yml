@@ -10,7 +10,7 @@ Settings:
   commands:
     levels:
       command: rankup
-      aliases: [ranks, level, levels, nivel, niveis]
+      aliases: [rank, ranks, level, levels, nivel, niveis]
     clothes:
       command: clothes
       aliases: [roupa, roupas, armadura, armaduras]
