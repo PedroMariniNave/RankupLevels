@@ -1,4 +1,4 @@
-package com.zpedroo.rankuplevels.objects;
+package com.zpedroo.rankuplevels.objects.general;
 
 import lombok.Data;
 

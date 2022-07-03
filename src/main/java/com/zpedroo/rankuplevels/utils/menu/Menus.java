@@ -2,7 +2,7 @@ package com.zpedroo.rankuplevels.utils.menu;
 
 import com.zpedroo.rankuplevels.enums.FormulaType;
 import com.zpedroo.rankuplevels.managers.DataManager;
-import com.zpedroo.rankuplevels.objects.PlayerData;
+import com.zpedroo.rankuplevels.objects.general.PlayerData;
 import com.zpedroo.rankuplevels.utils.FileUtils;
 import com.zpedroo.rankuplevels.utils.builder.InventoryBuilder;
 import com.zpedroo.rankuplevels.utils.builder.InventoryUtils;
@@ -11,6 +11,7 @@ import com.zpedroo.rankuplevels.utils.color.Colorize;
 import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
 import com.zpedroo.rankuplevels.utils.formula.ExperienceManager;
 import com.zpedroo.rankuplevels.utils.progress.ProgressConverter;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -55,9 +56,28 @@ public class Menus extends InventoryUtils {
             int slot = FileUtils.get().getInt(file, "Inventory.items." + items + ".slot");
 
             inventory.addItem(item, slot, () -> {
+                if (StringUtils.contains(action, ":")) {
+                    String[] split = action.split(":");
+                    String command = split.length > 1 ? split[1] : null;
+                    if (command == null) return;
+
+                    switch (split[0].toUpperCase()) {
+                        case "PLAYER":
+                            player.chat("/" + command);
+                            break;
+                        case "CONSOLE":
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.replaceEach(command, new String[]{
+                                    "{player}"
+                            }, new String[]{
+                                    player.getName()
+                            }));
+                            break;
+                    }
+                }
+
                 switch (action.toUpperCase()) {
                     case "CLOTHES":
-
+                        openClothesMenu(player);
                         break;
                     case "TOP":
                         openTopMenu(player);
@@ -65,6 +85,36 @@ public class Menus extends InventoryUtils {
                 }
             }, InventoryUtils.ActionType.ALL_CLICKS);
         }
+
+        inventory.open(player);
+    }
+
+    public void openClothesMenu(Player player) {
+        FileUtils.Files file = FileUtils.Files.CLOTHES;
+
+        String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
+        int size = FileUtils.get().getInt(file, "Inventory.size");
+
+        InventoryBuilder inventory = new InventoryBuilder(title, size);
+
+        String[] slots = FileUtils.get().getString(file, "Inventory.slots").replace(" ", "").split(",");
+        int i = -1;
+
+        for (String str : FileUtils.get().getSection(file, "Inventory.items")) {
+            if (++i >= slots.length) i = 0;
+
+            ItemStack item = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Inventory.items." + str).build();
+            int slot = Integer.parseInt(slots[i]);
+
+            inventory.addItem(item, slot);
+        }
+
+        ItemStack backItem = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Back-Item").build();
+        int slot = FileUtils.get().getInt(file, "Back-Item.slot");
+
+        inventory.addItem(backItem, slot, () -> {
+            openMainMenu(player);
+        }, ActionType.ALL_CLICKS);
 
         inventory.open(player);
     }

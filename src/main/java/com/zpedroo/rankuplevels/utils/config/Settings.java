@@ -8,7 +8,7 @@ public class Settings {
 
     public static final String LEVELS_COMMAND = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.commands.levels.command");
 
-    public static final List<String> LEVELS_ALIASES = FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.commands.level.aliases");
+    public static final List<String> LEVELS_ALIASES = FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.commands.levels.aliases");
 
     public static final String CLOTHES_COMMAND = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.commands.clothes.command");
 
@@ -21,6 +21,8 @@ public class Settings {
     public static final String RANK_PERMISSION = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.rank-permission");
 
     public static final boolean ADD_LOWER_RANKS_PERMISSION = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.add-lower-ranks-permission");
+
+    public static final int CLOTHES_PICKUP_COOLDOWN = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.clothes-pickup-cooldown");
 
     public static final int DEFAULT_LEVEL = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.default-level");
 

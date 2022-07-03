@@ -1,4 +1,4 @@
-package com.zpedroo.rankuplevels.objects;
+package com.zpedroo.rankuplevels.objects.properties;
 
 import lombok.Data;
 import org.bukkit.Sound;

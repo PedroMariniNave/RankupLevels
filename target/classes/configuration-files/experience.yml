@@ -1,13 +1,17 @@
 Block-Break:
   enabled: true
-  default-exp: 0 # xp padrão caso o bloco não esteja na lista
+  fortune:
+    enabled: true
+    multiplier: 1.1 # multiplier * fortune
+  disabled-worlds:
+    - 'plotworld'
   blocks:
-    DIAMOND_ORE: 25
-    EMERALD_ORE: 20
+    - 'DIAMOND_ORE:25'
+    - 'EMERALD_ORE:20'
 
 Enchantment-Table:
   enabled: true
-  xp-per-level: 250 # Encantando nível 30 -> 250 * 30 = 7500xp
+  xp-per-level: 10 # encantando nível 30 -> 10 * 30 = 300xp
 
 Player-Kill:
   enabled: true

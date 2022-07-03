@@ -2,10 +2,10 @@ package com.zpedroo.rankuplevels.managers.cache;
 
 import com.zpedroo.rankuplevels.RankupLevels;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
-import com.zpedroo.rankuplevels.objects.Clothes;
-import com.zpedroo.rankuplevels.objects.ClothesItem;
-import com.zpedroo.rankuplevels.objects.PlayerData;
-import com.zpedroo.rankuplevels.objects.LevelInfo;
+import com.zpedroo.rankuplevels.objects.clothes.Clothes;
+import com.zpedroo.rankuplevels.objects.clothes.ClothesItem;
+import com.zpedroo.rankuplevels.objects.general.PlayerData;
+import com.zpedroo.rankuplevels.objects.general.LevelInfo;
 import com.zpedroo.rankuplevels.utils.FileUtils;
 import com.zpedroo.rankuplevels.utils.builder.ItemBuilder;
 import com.zpedroo.rankuplevels.utils.color.Colorize;

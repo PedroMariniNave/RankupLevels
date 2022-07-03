@@ -1,6 +1,6 @@
 package com.zpedroo.rankuplevels.mysql;
 
-import com.zpedroo.rankuplevels.objects.PlayerData;
+import com.zpedroo.rankuplevels.objects.general.PlayerData;
 
 import java.sql.*;
 import java.util.ArrayList;

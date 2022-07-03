@@ -18,6 +18,7 @@ Settings:
   data-update-interval: 600 # segundos
   rank-permission: rank.{level} # permissão que será adicionada ao jogador
   add-lower-ranks-permission: true # adicionar as permissões dos ranks anteriores
+  clothes-pickup-cooldown: 5 # segundos
   default-level: 1
   max-level: 500
   progress-digits: 2
@@ -97,6 +98,7 @@ Messages:
     - ' &eUm novo visual foi adicionado a sua roupa!'
     - ' &7Chique... E confortável.'
     - ''
+  cooldown: '&cAguarde {cooldown} segundos antes de pegar outra roupa!'
 
 Progress:
   display-amount: 10

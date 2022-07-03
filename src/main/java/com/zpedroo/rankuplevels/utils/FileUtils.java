@@ -114,6 +114,7 @@ public class FileUtils {
         CONFIG("config", "configuration-files", "", false),
         EXPERIENCE("experience", "configuration-files", "", false),
         MAIN("main", "menus", "menus", false),
+        CLOTHES("clothes", "menus", "menus", false),
         TOP("top", "menus", "menus", false);
 
         private final String name;

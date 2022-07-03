@@ -2,7 +2,7 @@ package com.zpedroo.rankuplevels.listeners;
 
 import br.com.devpaulo.legendchat.api.events.ChatMessageEvent;
 import com.zpedroo.rankuplevels.managers.DataManager;
-import com.zpedroo.rankuplevels.objects.PlayerData;
+import com.zpedroo.rankuplevels.objects.general.PlayerData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

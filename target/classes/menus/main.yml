@@ -1,3 +1,11 @@
+#
+# Ações disponíveis:
+#
+# CLOTHES - Abrir menu de roupas
+# TOP - Abrir menu de top
+# PLAYER:<comando> - Força o jogador a executar um comando -> PLAYER:spawn
+# CONSOLE:<comando> - Força o console a executar um comando -> CONSOLE:kit give {player} 1
+#
 Inventory:
   title: "Níveis"
   size: 27
@@ -25,7 +33,7 @@ Inventory:
     3:
       action: TOP
       type: SKULL_ITEM
-      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjRhZjhkNTc1ZjBhNTI0ZWY2NmEyMTU3M2U4YTRhOGFjN2Q2NDBiMDBkOThlMmU5Mzc0ZTYwNDcwZTdjODZmMCJ9fX0=
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWNlMjUyOTYzYTUxODhjZWY4ZWRlOWQ4NTIzYmQ5MWQyODRhNzg1YjQxOGIzOWVlYzI5YTkxYWVhMDdjNjFlMiJ9fX0=
       name: "&6Top Níveis"
       lore:
         - '&7Aqui você encontrará os'

@@ -1,5 +1,8 @@
 Block-Break:
   enabled: true
+  fortune:
+    enabled: true
+    multiplier: 1.1 # multiplier * fortune
   disabled-worlds:
     - 'plotworld'
   blocks:
@@ -8,7 +11,7 @@ Block-Break:
 
 Enchantment-Table:
   enabled: true
-  xp-per-level: 10 # Encantando nível 30 -> 10 * 30 = 300xp
+  xp-per-level: 10 # encantando nível 30 -> 10 * 30 = 300xp
 
 Player-Kill:
   enabled: true

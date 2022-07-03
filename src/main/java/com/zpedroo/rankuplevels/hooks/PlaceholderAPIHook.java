@@ -2,7 +2,7 @@ package com.zpedroo.rankuplevels.hooks;
 
 import com.zpedroo.rankuplevels.enums.FormulaType;
 import com.zpedroo.rankuplevels.managers.DataManager;
-import com.zpedroo.rankuplevels.objects.PlayerData;
+import com.zpedroo.rankuplevels.objects.general.PlayerData;
 import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
 import com.zpedroo.rankuplevels.utils.progress.ProgressConverter;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;

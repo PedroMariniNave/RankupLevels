@@ -1,4 +1,4 @@
-package com.zpedroo.rankuplevels.objects;
+package com.zpedroo.rankuplevels.objects.general;
 
 import com.zpedroo.rankuplevels.RankupLevels;
 import com.zpedroo.rankuplevels.api.events.PlayerGainXpEvent;

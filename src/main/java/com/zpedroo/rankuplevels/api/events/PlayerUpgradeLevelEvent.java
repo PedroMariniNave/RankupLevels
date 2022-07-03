@@ -1,6 +1,6 @@
 package com.zpedroo.rankuplevels.api.events;
 
-import com.zpedroo.rankuplevels.objects.LevelInfo;
+import com.zpedroo.rankuplevels.objects.general.LevelInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.bukkit.entity.Player;

@@ -11,6 +11,7 @@ import com.zpedroo.rankuplevels.managers.DataManager;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
 import com.zpedroo.rankuplevels.tasks.DataUpdateTask;
 import com.zpedroo.rankuplevels.utils.FileUtils;
+import com.zpedroo.rankuplevels.utils.cooldown.Cooldown;
 import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
 import com.zpedroo.rankuplevels.utils.menu.Menus;
 import org.bukkit.Bukkit;
@@ -47,6 +48,7 @@ public class RankupLevels extends JavaPlugin {
         new NumberFormatter(getConfig());
         new DataManager();
         new Menus();
+        new Cooldown();
         new DataUpdateTask(this);
 
         registerHooks();

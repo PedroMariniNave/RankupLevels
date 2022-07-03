@@ -41,7 +41,7 @@ public class RankupLevelsCmd implements CommandExecutor {
                     if (target == null) break;
 
                     amount = NumberFormatter.getInstance().filter(args[2]);
-                    if (amount.signum() <= 0) break;
+                    if (amount.signum() < 0) break;
 
                     RankupLevelsAPI.setExp(target, amount.doubleValue());
                     return true;
