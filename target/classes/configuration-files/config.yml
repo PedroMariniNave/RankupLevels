@@ -7,10 +7,15 @@ MySQL:
   port: 3306
 
 Settings:
-  command: rankup
-  aliases: [ranks, level, levels, nivel, niveis]
+  commands:
+    levels:
+      command: rankup
+      aliases: [ranks, level, levels, nivel, niveis]
+    clothes:
+      command: clothes
+      aliases: [roupa, roupas, armadura, armaduras]
   admin-permission: ranks.admin
-  save-interval: 600 # segundos
+  data-update-interval: 600 # segundos
   rank-permission: rank.{level} # permissão que será adicionada ao jogador
   add-lower-ranks-permission: true # adicionar as permissões dos ranks anteriores
   default-level: 1
@@ -104,8 +109,8 @@ Experience-Formula: # base + (base * level ^ exponent)
     base-exp: 500
     exponent: 1.8
   clothes-level:
-    base-exp: 100
-    exponent: 1.5
+    base-exp: 350
+    exponent: 1.65
 
 Titles:
   rank-up:
@@ -120,7 +125,7 @@ Sounds:
     pitch: 4
   armor-up:
     enabled: true
-    sound: LEVEL_UP
+    sound: NOTE_STICKS
     volume: 10
     pitch: 4
 

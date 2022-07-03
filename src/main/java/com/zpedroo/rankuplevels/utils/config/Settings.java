@@ -6,13 +6,17 @@ import java.util.List;
 
 public class Settings {
 
-    public static final String COMMAND = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.command");
+    public static final String LEVELS_COMMAND = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.commands.levels.command");
 
-    public static final List<String> ALIASES = FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.aliases");
+    public static final List<String> LEVELS_ALIASES = FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.commands.level.aliases");
+
+    public static final String CLOTHES_COMMAND = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.commands.clothes.command");
+
+    public static final List<String> CLOTHES_ALIASES = FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.commands.clothes.aliases");
 
     public static final String ADMIN_PERMISSION = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.admin-permission");
 
-    public static final long SAVE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.save-interval");
+    public static final long DATA_UPDATE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.data-update-interval");
 
     public static final String RANK_PERMISSION = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.rank-permission");
 

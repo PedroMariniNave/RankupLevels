@@ -3,11 +3,12 @@ package com.zpedroo.rankuplevels;
 import com.zpedroo.rankuplevels.commands.ClothesCmd;
 import com.zpedroo.rankuplevels.commands.RankupLevelsCmd;
 import com.zpedroo.rankuplevels.hooks.PlaceholderAPIHook;
+import com.zpedroo.rankuplevels.listeners.ClothesPreventListeners;
 import com.zpedroo.rankuplevels.listeners.PlayerGeneralListeners;
 import com.zpedroo.rankuplevels.listeners.TagListeners;
 import com.zpedroo.rankuplevels.managers.DataManager;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
-import com.zpedroo.rankuplevels.tasks.SaveTask;
+import com.zpedroo.rankuplevels.tasks.DataUpdateTask;
 import com.zpedroo.rankuplevels.utils.FileUtils;
 import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
 import com.zpedroo.rankuplevels.utils.menu.Menus;
@@ -21,12 +22,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
-import static com.zpedroo.rankuplevels.utils.config.Settings.ALIASES;
-import static com.zpedroo.rankuplevels.utils.config.Settings.COMMAND;
+import static com.zpedroo.rankuplevels.utils.config.Settings.*;
 
 public class RankupLevels extends JavaPlugin {
 
@@ -47,12 +46,12 @@ public class RankupLevels extends JavaPlugin {
         new NumberFormatter(getConfig());
         new DataManager();
         new Menus();
-        new SaveTask(this);
+        new DataUpdateTask(this);
 
         registerHooks();
         registerListeners();
-        registerCommand(COMMAND, ALIASES, new RankupLevelsCmd());
-        registerCommand("clothes", Arrays.asList("roupa", "roupas"), new ClothesCmd());
+        registerCommand(LEVELS_COMMAND, LEVELS_ALIASES, new RankupLevelsCmd());
+        registerCommand(CLOTHES_COMMAND, CLOTHES_ALIASES, new ClothesCmd());
     }
 
     public void onDisable() {
@@ -86,6 +85,7 @@ public class RankupLevels extends JavaPlugin {
     }
 
     private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new ClothesPreventListeners(), this);
         getServer().getPluginManager().registerEvents(new PlayerGeneralListeners(), this);
     }
 

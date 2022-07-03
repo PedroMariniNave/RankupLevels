@@ -104,13 +104,18 @@ public class PlayerGeneralListeners implements Listener {
             Clothes newClothes = DataManager.getInstance().getClothesByLevel(newLevel);
             if (newClothes == null) continue;
 
-            if (isNewLevel(oldLevel, newLevel) && !newLevelMessages.add(newLevel)) {
-                handleNewClothesLevel(player, clothesItem, oldLevel, newLevel, newClothes);
+            Clothes oldClothes = clothesItem.getClothes();
+            boolean playEffects = newLevelMessages.add(newLevel);
+            if (isNewLevel(oldLevel, newLevel) && playEffects) {
+                handleNewClothesLevelMessages(player, oldClothes, newClothes, oldLevel);
+                handleNewClothesSounds(player);
             }
 
             ItemStack newArmorItem = null;
             if (isNewVisual(clothesItem, newClothes)) {
-                newArmorItem = handleNewClothesVisual(player, xpAmount, newClothesMessages, item, newLevel, newClothes);
+                boolean sendMessages = newClothesMessages.add(newLevel);
+                double totalXp = clothesItem.getExperience();
+                newArmorItem = handleNewClothesVisual(player, item, newClothes, totalXp, sendMessages);
             } else {
                 newArmorItem = clothesItem.getFinalItem();
             }
@@ -123,18 +128,26 @@ public class PlayerGeneralListeners implements Listener {
         event.setXpAmount(xpAmount * bonus);
     }
 
-    private void handleNewClothesLevel(Player player, ClothesItem clothesItem, int oldLevel, int newLevel, Clothes newClothes) {
-        double oldBonus = clothesItem.getBonus() * oldLevel;
+    private void handleNewClothesLevelMessages(Player player, Clothes oldClothes, Clothes newClothes, int oldLevel) {
+        int newLevel = oldLevel + 1;
+        double oldBonus = oldClothes.getBonus() * oldLevel;
         double newBonus = newClothes.getBonus() * newLevel;
         String[] placeholders = new String[]{
                 "{old_level}", "{new_level}", "{old_bonus}", "{new_bonus}"
         };
         String[] replacers = new String[]{
                 NumberFormatter.getInstance().formatThousand(oldLevel), NumberFormatter.getInstance().formatThousand(newLevel),
-                NumberFormatter.getInstance().formatDecimal(oldBonus), NumberFormatter.getInstance().formatDecimal(newBonus)
+                NumberFormatter.getInstance().formatDecimal(oldBonus, CLOTHES_DIGITS), NumberFormatter.getInstance().formatDecimal(newBonus, CLOTHES_DIGITS)
         };
 
         sendMessages(player, Messages.NEW_LEVEL, placeholders, replacers);
+    }
+
+    private void handleNewClothesSounds(Player player) {
+        SoundProperties soundProperties = Sounds.ARMOR_UP;
+        if (soundProperties != null && soundProperties.isEnabled()) {
+            player.playSound(player.getLocation(), soundProperties.getSound(), soundProperties.getVolume(), soundProperties.getPitch());
+        }
     }
 
     private void handleNewLevelInfoMethods(LevelInfo newLevelInfo, String[] placeholders, String[] replacers) {
@@ -152,14 +165,15 @@ public class PlayerGeneralListeners implements Listener {
         }
     }
 
-    private ItemStack handleNewClothesVisual(Player player, double xpAmount, Set<Integer> newClothesMessages, ItemStack item, int newLevel, Clothes newClothes) {
+    private ItemStack handleNewClothesVisual(Player player, ItemStack item, Clothes newClothes, double xpAmount, boolean sendMessages) {
         ItemStack newArmorItem;
         ClothesItem newClothesItem = new ClothesItem(newClothes, newClothes.getSimilarItem(item), xpAmount);
         newClothesItem.cache();
         newArmorItem = newClothesItem.getFinalItem();
-        if (!newClothesMessages.add(newLevel)) {
+        if (sendMessages) {
             sendMessages(player, Messages.NEW_CLOTHES);
         }
+
         return newArmorItem;
     }
 
