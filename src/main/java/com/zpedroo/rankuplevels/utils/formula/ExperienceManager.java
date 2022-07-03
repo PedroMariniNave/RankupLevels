@@ -2,7 +2,7 @@ package com.zpedroo.rankuplevels.utils.formula;
 
 import com.zpedroo.rankuplevels.enums.FormulaType;
 
-import static com.zpedroo.rankuplevels.utils.config.Experience.*;
+import static com.zpedroo.rankuplevels.utils.config.ExperienceFormula.*;
 import static com.zpedroo.rankuplevels.utils.config.Settings.DEFAULT_LEVEL;
 
 public class ExperienceManager {

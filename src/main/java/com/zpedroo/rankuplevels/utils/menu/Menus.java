@@ -56,6 +56,9 @@ public class Menus extends InventoryUtils {
 
             inventory.addItem(item, slot, () -> {
                 switch (action.toUpperCase()) {
+                    case "CLOTHES":
+
+                        break;
                     case "TOP":
                         openTopMenu(player);
                         break;

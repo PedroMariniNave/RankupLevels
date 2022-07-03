@@ -2,7 +2,7 @@ package com.zpedroo.rankuplevels.utils.config;
 
 import com.zpedroo.rankuplevels.utils.FileUtils;
 
-public class Experience {
+public class ExperienceFormula {
 
     public static final double PLAYER_BASE_EXP = FileUtils.get().getDouble(FileUtils.Files.CONFIG, "Experience-Formula.player-level.base-exp");
 

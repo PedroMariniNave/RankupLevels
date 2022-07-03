@@ -127,7 +127,7 @@ Sounds:
     enabled: true
     sound: NOTE_STICKS
     volume: 10
-    pitch: 4
+    pitch: 2
 
 Number-Formatter:
   - "k"
