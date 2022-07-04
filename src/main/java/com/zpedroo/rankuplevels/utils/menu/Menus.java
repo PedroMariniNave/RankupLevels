@@ -95,7 +95,13 @@ public class Menus extends InventoryUtils {
         String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
         int size = FileUtils.get().getInt(file, "Inventory.size");
 
-        InventoryBuilder inventory = new InventoryBuilder(title, size);
+        ItemStack previousPageItem = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Previous-Page-Item").build();
+        ItemStack nextPageItem = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Next-Page-Item").build();
+
+        int nextPageSlot = FileUtils.get().getInt(file, "Inventory.next-page-slot");
+        int previousPageSlot = FileUtils.get().getInt(file, "Inventory.previous-page-slot");
+
+        InventoryBuilder inventory = new InventoryBuilder(title, size, previousPageItem, previousPageSlot, nextPageItem, nextPageSlot);
 
         String[] slots = FileUtils.get().getString(file, "Inventory.slots").replace(" ", "").split(",");
         int i = -1;
@@ -112,7 +118,7 @@ public class Menus extends InventoryUtils {
         ItemStack backItem = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Back-Item").build();
         int slot = FileUtils.get().getInt(file, "Back-Item.slot");
 
-        inventory.addItem(backItem, slot, () -> {
+        inventory.addDefaultItem(backItem, slot, () -> {
             openMainMenu(player);
         }, ActionType.ALL_CLICKS);
 

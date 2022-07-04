@@ -1,0 +1,46 @@
+Inventory:
+  title: "Níveis"
+  size: 54
+  slots: 11,12,13,14,15,20,21,22,23,24,29,30,31,32,33
+  next-page-slot: 26 # só vai aparecer se tiver próxima página
+  previous-page-slot: 18 # só vai aparecer se tiver página anterior
+  items:
+    1:
+      type: LEATHER_CHESTPLATE
+      color: '185:185:185'
+      name: '&6Roupa #1'
+      lore:
+        - '&7Abaixo estão as informações'
+        - '&7dessa roupa:'
+        - ''
+        - ' &8► &fNível necessário: &71'
+        - ' &8► &fBônus inicial: &70.0025x'
+        - ''
+        - '&8A cada nível, o bônus aumenta'
+        - '&8de acordo com o inicial.'
+    2:
+      type: LEATHER_CHESTPLATE
+      color: '140:140:140'
+      name: '&6Roupa #2'
+      lore:
+        - '&7Abaixo estão as informações'
+        - '&7dessa roupa:'
+        - ''
+        - ' &8► &fNível necessário: &715'
+        - ' &8► &fBônus inicial: &70.0035x'
+        - ''
+        - '&8A cada nível, o bônus aumenta'
+        - '&8de acordo com o inicial.'
+
+Previous-Page-Item:
+  type: ARROW
+  name: '&cPágina anterior'
+
+Next-Page-Item:
+  type: ARROW
+  name: '&aPróxima página'
+
+Back-Item:
+  type: ARROW
+  name: '&cVoltar'
+  slot: 49

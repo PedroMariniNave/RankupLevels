@@ -1,0 +1,60 @@
+Clothes-Settings:
+  required-level: 15
+  bonus: 0.0035
+  items:
+    1:
+      type: LEATHER_HELMET
+      color: '140:140:140' # R:G:B
+      name: '&6Boné #2'
+      lore:
+        - '&7Cada parte da roupa lhe'
+        - '&7dá um certo bônus de xp'
+        - '&7para evolução de níveis.'
+        - ''
+        - ' &8► &fNível: &7{level} {progress}'
+        - ' &8► &fBônus: &7{bonus}x'
+        - ''
+        - '&8A evolução varia de acordo'
+        - '&8com a durabilidade da roupa.'
+    2:
+      type: LEATHER_CHESTPLATE
+      color: '140:140:140'
+      name: '&6Moletom #2'
+      lore:
+        - '&7Cada parte da roupa lhe'
+        - '&7dá um certo bônus de xp'
+        - '&7para evolução de níveis.'
+        - ''
+        - ' &8► &fNível: &7{level} {progress}'
+        - ' &8► &fBônus: &7{bonus}x'
+        - ''
+        - '&8A evolução varia de acordo'
+        - '&8com a durabilidade da roupa.'
+    3:
+      type: LEATHER_LEGGINGS
+      color: '140:140:140'
+      name: '&6Calça #2'
+      lore:
+        - '&7Cada parte da roupa lhe'
+        - '&7dá um certo bônus de xp'
+        - '&7para evolução de níveis.'
+        - ''
+        - ' &8► &fNível: &7{level} {progress}'
+        - ' &8► &fBônus: &7{bonus}x'
+        - ''
+        - '&8A evolução varia de acordo'
+        - '&8com a durabilidade da roupa.'
+    4:
+      type: LEATHER_BOOTS
+      color: '140:140:140'
+      name: '&6Tênis #2'
+      lore:
+        - '&7Cada parte da roupa lhe'
+        - '&7dá um certo bônus de xp'
+        - '&7para evolução de níveis.'
+        - ''
+        - ' &8► &fNível: &7{level} {progress}'
+        - ' &8► &fBônus: &7{bonus}x'
+        - ''
+        - '&8A evolução varia de acordo'
+        - '&8com a durabilidade da roupa.'
