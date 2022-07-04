@@ -6,30 +6,42 @@ import com.zpedroo.rankuplevels.utils.formatter.NumberFormatter;
 import com.zpedroo.rankuplevels.utils.formula.ExperienceManager;
 import com.zpedroo.rankuplevels.utils.progress.ProgressConverter;
 import de.tr7zw.nbtapi.NBTItem;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static com.zpedroo.rankuplevels.utils.config.Settings.CLOTHES_DIGITS;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 public class ClothesItem implements Serializable {
 
     private final UUID id = UUID.randomUUID();
     private final Clothes clothes;
     private final ItemStack defaultItem;
-    private double experience = 0;
+    private double experience;
+
+    @Getter(AccessLevel.NONE)
+    private int levelCache = -1;
+
+    @Getter(AccessLevel.NONE)
+    private Map<Integer, Double> oldClothesBonusCache = null;
+
+    public ClothesItem(Clothes clothes, ItemStack defaultItem, double experience) {
+        this.clothes = clothes;
+        this.defaultItem = defaultItem;
+        this.experience = experience;
+        this.updateCache();
+    }
 
     public int getLevel() {
-        return ExperienceManager.getLevel(experience, FormulaType.CLOTHES_LEVEL);
+        return levelCache;
     }
 
     public double getProgress() {
@@ -47,17 +59,7 @@ public class ClothesItem implements Serializable {
     }
 
     public double getOldClothesBonuses() {
-        double bonus = 0;
-        int minLevel = clothes.getRequiredLevel();
-        int levelToGet = 1;
-        while (levelToGet <= minLevel) {
-            Clothes clothes = DataManager.getInstance().getClothesByLevel(levelToGet++);
-            if (clothes == null) continue;
-
-            bonus += clothes.getBonusPerLevel();
-        }
-
-        return bonus;
+        return oldClothesBonusCache.values().stream().mapToDouble(Double::doubleValue).sum();
     }
 
     public String getProgressDisplay() {
@@ -66,6 +68,7 @@ public class ClothesItem implements Serializable {
 
     public void addExperience(double amount) {
         this.experience += amount;
+        if (levelCache != calcLevel()) updateCache();
     }
 
     public ItemStack getFinalItem() {
@@ -113,6 +116,31 @@ public class ClothesItem implements Serializable {
         }
 
         return item;
+    }
+
+    private void updateCache() {
+        this.levelCache = calcLevel();
+        this.oldClothesBonusCache = calcOldClothesBonuses();
+    }
+
+    private int calcLevel() {
+        return ExperienceManager.getLevel(experience, FormulaType.CLOTHES_LEVEL);
+    }
+
+    private Map<Integer, Double> calcOldClothesBonuses() {
+        Map<Integer, Double> ret = oldClothesBonusCache == null ? new HashMap<>() : oldClothesBonusCache;
+
+        int minLevel = clothes.getRequiredLevel();
+        int levelToGet = ret.isEmpty() ? 1 : Collections.max(ret.keySet());
+        while (levelToGet <= minLevel) {
+            Clothes clothes = DataManager.getInstance().getClothesByLevel(levelToGet++);
+            if (clothes == null) continue;
+
+            double bonus = clothes.getBonusPerLevel();
+            ret.put(levelToGet, bonus);
+        }
+
+        return ret;
     }
 
     public void cache() {

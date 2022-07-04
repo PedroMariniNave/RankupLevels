@@ -108,8 +108,8 @@ Progress:
 
 Experience-Formula: # base + (base * level ^ exponent)
   player-level:
-    base-exp: 500
-    exponent: 1.8
+    base-exp: 2500
+    exponent: 2.25
   clothes-level:
     base-exp: 350
     exponent: 1.65
