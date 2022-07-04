@@ -36,8 +36,28 @@ public class ClothesItem implements Serializable {
         return ProgressConverter.getPercentage(experience, FormulaType.CLOTHES_LEVEL);
     }
 
-    public double getBonus() {
-        return clothes.getBonus() * getLevel();
+    public double getTotalBonus() {
+        double bonus = clothes.getBonusPerLevel();
+        int minLevel = clothes.getRequiredLevel();
+        int level = getLevel();
+        int levelDifference = level - minLevel;
+        double actualClothesBonus = bonus * levelDifference;
+
+        return getOldClothesBonuses() + actualClothesBonus;
+    }
+
+    public double getOldClothesBonuses() {
+        double bonus = 0;
+        int minLevel = clothes.getRequiredLevel();
+        int levelToGet = 1;
+        while (levelToGet <= minLevel) {
+            Clothes clothes = DataManager.getInstance().getClothesByLevel(levelToGet++);
+            if (clothes == null) continue;
+
+            bonus += clothes.getBonusPerLevel();
+        }
+
+        return bonus;
     }
 
     public String getProgressDisplay() {
@@ -58,7 +78,7 @@ public class ClothesItem implements Serializable {
         ItemMeta meta = item.getItemMeta();
         int level = getLevel();
         String progressDisplay = getProgressDisplay();
-        double bonus = getBonus();
+        double bonus = getTotalBonus();
         double progress = getProgress();
         float maxDurability = item.getType().getMaxDurability();
         float durabilityPerPercentage = maxDurability / 100;

@@ -95,47 +95,47 @@ public class PlayerGeneralListeners implements Listener {
             ItemStack item = armorItems[i];
             if (item == null || item.getType().equals(Material.AIR)) continue;
 
-            ClothesItem clothesItem = DataManager.getInstance().getClothesItem(item);
-            if (clothesItem == null) {
+            ClothesItem originalClothesItem = DataManager.getInstance().getClothesItem(item);
+            if (originalClothesItem == null) {
                 newArmorItems[i] = item;
                 continue;
             }
 
-            final int oldLevel = clothesItem.getLevel();
-            clothesItem.addExperience(xpAmount);
+            final int oldLevel = originalClothesItem.getLevel();
+            originalClothesItem.addExperience(xpAmount);
 
-            int newLevel = clothesItem.getLevel();
+            int newLevel = originalClothesItem.getLevel();
             Clothes newClothes = DataManager.getInstance().getClothesByLevel(newLevel);
             if (newClothes == null) continue;
 
-            Clothes oldClothes = clothesItem.getClothes();
+            double totalXp = originalClothesItem.getExperience();
+            ClothesItem newClothesItem = new ClothesItem(newClothes, newClothes.getSimilarItem(item), totalXp);
             boolean playEffects = newLevelMessages.add(newLevel);
             if (isNewLevel(oldLevel, newLevel) && playEffects) {
-                handleNewClothesLevelMessages(player, oldClothes, newClothes, oldLevel);
+                handleNewClothesLevelMessages(player, originalClothesItem, newClothesItem, oldLevel);
                 handleNewClothesSounds(player);
             }
 
             ItemStack newArmorItem = null;
-            if (isNewVisual(clothesItem, newClothes)) {
+            if (isNewVisual(originalClothesItem, newClothes)) {
                 boolean sendMessages = newClothesMessages.add(newLevel);
-                double totalXp = clothesItem.getExperience();
-                newArmorItem = handleNewClothesVisual(player, item, newClothes, totalXp, sendMessages);
+                newArmorItem = handleNewClothesVisual(player, newClothesItem, sendMessages);
             } else {
-                newArmorItem = clothesItem.getFinalItem();
+                newArmorItem = originalClothesItem.getFinalItem();
             }
 
             newArmorItems[i] = newArmorItem;
-            bonus += clothesItem.getClothes().getBonus() * newLevel;
+            bonus += originalClothesItem.getClothes().getBonusPerLevel() * newLevel;
         }
 
         setPlayerArmor(player, newArmorItems);
         event.setXpAmount(xpAmount * bonus);
     }
 
-    private void handleNewClothesLevelMessages(Player player, Clothes oldClothes, Clothes newClothes, int oldLevel) {
-        int newLevel = oldLevel + 1;
-        double oldBonus = oldClothes.getBonus() * oldLevel;
-        double newBonus = newClothes.getBonus() * newLevel;
+    private void handleNewClothesLevelMessages(Player player, ClothesItem oldClothesItem, ClothesItem newClothesItem, int oldLevel) {
+        int newLevel = newClothesItem.getLevel();
+        double oldBonus = oldClothesItem.getTotalBonus();
+        double newBonus = newClothesItem.getTotalBonus();
         String[] placeholders = new String[]{
                 "{old_level}", "{new_level}", "{old_bonus}", "{new_bonus}"
         };
@@ -169,10 +169,9 @@ public class PlayerGeneralListeners implements Listener {
         }
     }
 
-    private ItemStack handleNewClothesVisual(Player player, ItemStack item, Clothes newClothes, double xpAmount, boolean sendMessages) {
-        ItemStack newArmorItem;
-        ClothesItem newClothesItem = new ClothesItem(newClothes, newClothes.getSimilarItem(item), xpAmount);
+    private ItemStack handleNewClothesVisual(Player player, ClothesItem newClothesItem, boolean sendMessages) {
         newClothesItem.cache();
+        ItemStack newArmorItem;
         newArmorItem = newClothesItem.getFinalItem();
         if (sendMessages) {
             sendMessages(player, Messages.NEW_CLOTHES);

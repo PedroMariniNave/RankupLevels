@@ -35,7 +35,7 @@ Inventory:
 Previous-Page-Item:
   type: ARROW
   name: '&cPágina anterior'
-  
+
 Next-Page-Item:
   type: ARROW
   name: '&aPróxima página'

@@ -11,7 +11,7 @@ public class Clothes implements Serializable {
 
     private final String name;
     private final int requiredLevel;
-    private final double bonus;
+    private final double bonusPerLevel;
     private final ItemStack[] items;
 
     public ItemStack[] getItems() {
