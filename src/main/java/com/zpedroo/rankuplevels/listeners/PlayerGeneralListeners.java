@@ -135,11 +135,11 @@ public class PlayerGeneralListeners implements Listener {
             }
 
             newArmorItems[i] = newArmorItem;
-            bonus += originalClothesItem.getClothes().getBonusPerLevel() * newLevel;
+            bonus += newClothesItem.getTotalBonus();
         }
 
         setPlayerArmor(player, newArmorItems);
-        event.setXpAmount(xpAmount + (xpAmount * bonus));
+        event.setXpAmount(xpAmount * bonus);
     }
 
     private void handleNewClothesSounds(Player player) {
