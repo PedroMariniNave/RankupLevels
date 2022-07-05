@@ -38,7 +38,7 @@ public class XPListeners implements Listener {
             int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
             double fortuneMultiplier = enchantmentLevel > 0 ? (enchantmentLevel * BlockBreakXP.FORTUNE_MULTIPLIER) : 1;
 
-            xpToGive *= fortuneMultiplier;
+            xpToGive += xpToGive * fortuneMultiplier;
         }
 
         RankupLevelsAPI.addExp(player, xpToGive);

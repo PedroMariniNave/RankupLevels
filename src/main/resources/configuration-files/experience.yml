@@ -2,7 +2,7 @@ Block-Break:
   enabled: true
   fortune:
     enabled: true
-    multiplier: 1.1 # multiplier * fortune
+    multiplier: 0.15 # multiplier * fortune
   disabled-worlds:
     - 'plotworld'
   blocks:

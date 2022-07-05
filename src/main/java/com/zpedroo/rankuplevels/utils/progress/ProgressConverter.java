@@ -2,6 +2,7 @@ package com.zpedroo.rankuplevels.utils.progress;
 
 import com.google.common.base.Strings;
 import com.zpedroo.rankuplevels.enums.FormulaType;
+import com.zpedroo.rankuplevels.utils.config.Settings;
 import com.zpedroo.rankuplevels.utils.formula.ExperienceManager;
 
 import static com.zpedroo.rankuplevels.utils.config.Progress.*;
@@ -19,6 +20,8 @@ public class ProgressConverter {
 
     public static double getPercentage(double experience, FormulaType type) {
         int level = ExperienceManager.getLevel(experience, type);
+        if (level >= Settings.MAX_LEVEL) return 100;
+
         double xpToActualLevel = ExperienceManager.getFullLevelExperience(level-1, type);
         double xpToNextLevel = ExperienceManager.getFullLevelExperience(level, type);
 
