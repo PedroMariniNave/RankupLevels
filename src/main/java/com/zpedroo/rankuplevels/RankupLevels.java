@@ -3,10 +3,7 @@ package com.zpedroo.rankuplevels;
 import com.zpedroo.rankuplevels.commands.ClothesCmd;
 import com.zpedroo.rankuplevels.commands.RankupLevelsCmd;
 import com.zpedroo.rankuplevels.hooks.PlaceholderAPIHook;
-import com.zpedroo.rankuplevels.listeners.ClothesPreventListeners;
-import com.zpedroo.rankuplevels.listeners.PlayerGeneralListeners;
-import com.zpedroo.rankuplevels.listeners.TagListeners;
-import com.zpedroo.rankuplevels.listeners.XPListeners;
+import com.zpedroo.rankuplevels.listeners.*;
 import com.zpedroo.rankuplevels.managers.DataManager;
 import com.zpedroo.rankuplevels.mysql.DBConnection;
 import com.zpedroo.rankuplevels.tasks.DataUpdateTask;
@@ -90,7 +87,8 @@ public class RankupLevels extends JavaPlugin {
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new ClothesPreventListeners(), this);
         getServer().getPluginManager().registerEvents(new PlayerGeneralListeners(), this);
-        getServer().getPluginManager().registerEvents(new XPListeners(), this);
+        getServer().getPluginManager().registerEvents(new EXPListeners(), this);
+        getServer().getPluginManager().registerEvents(new ItemActivateListeners(), this);
     }
 
     private void registerHooks() {

@@ -34,11 +34,11 @@ public class ExperienceManager {
         return levelFullExperienceCache.get(level, type);
     }
 
-    public static double getUpgradeLevelExperience(int level, FormulaType type) {
+    private static double getUpgradeLevelExperience(int level, FormulaType type) {
         return getLevelExperience(++level, type);
     }
 
-    public static double getLevelExperience(int level, FormulaType type) {
+    private static double getLevelExperience(int level, FormulaType type) {
         if (level <= DEFAULT_LEVEL) return 0;
         if (!levelExperienceCache.contains(level, type)) {
             double baseExp = type == FormulaType.PLAYER_LEVEL ? PLAYER_BASE_EXP : CLOTHES_BASE_EXP;

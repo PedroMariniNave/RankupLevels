@@ -17,7 +17,7 @@ import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class XPListeners implements Listener {
+public class EXPListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event) {

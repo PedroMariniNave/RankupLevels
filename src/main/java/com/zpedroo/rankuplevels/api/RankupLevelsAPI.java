@@ -10,6 +10,10 @@ public class RankupLevelsAPI {
         return DataManager.getInstance().getPlayerData(player).getLevel();
     }
 
+    public static double getExpAmount(@NotNull Player player) {
+        return DataManager.getInstance().getPlayerData(player).getExpAmount();
+    }
+
     public static void addExp(@NotNull Player player, double amount) {
         DataManager.getInstance().getPlayerData(player).addExp(amount);
     }
