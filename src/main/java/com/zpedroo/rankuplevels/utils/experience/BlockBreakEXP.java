@@ -6,7 +6,7 @@ import com.zpedroo.rankuplevels.utils.loader.BlockLoader;
 
 import java.util.List;
 
-public class BlockBreakXP {
+public class BlockBreakEXP {
 
     public static final boolean ENABLED = FileUtils.get().getBoolean(FileUtils.Files.EXPERIENCE, "Block-Break.enabled");
 

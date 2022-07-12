@@ -7,5 +7,5 @@ import org.bukkit.Material;
 public class BlockProperties {
 
     private final Material material;
-    private final double xp;
+    private final double expAmount;
 }
