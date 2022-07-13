@@ -89,7 +89,7 @@ public class EXPListeners implements Listener {
             int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
             double multiplier = 1 + (enchantmentLevel * BlockBreakEXP.FORTUNE_MULTIPLIER);
 
-            expToGive += multiplier;
+            expToGive *= multiplier;
         }
 
         RankupLevelsAPI.addExp(player, expToGive);
