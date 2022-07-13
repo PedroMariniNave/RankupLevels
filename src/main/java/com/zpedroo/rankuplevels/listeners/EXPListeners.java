@@ -25,7 +25,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class EXPListeners implements Listener {
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onMobDamage(EntityDamageByEntityEvent event) {
         if (!DamageMobsEXP.ENABLED) return;
         if (!(event.getDamager() instanceof Player) || event.isCancelled()) return;
@@ -61,8 +61,7 @@ public class EXPListeners implements Listener {
         double expToGive = farmMob.getExpAmount();
         ItemStack item = player.getItemInHand();
         if (KillMobsEXP.LOOTING_ENABLED && isValidItem(item)) {
-            ItemMeta meta = item.getItemMeta();
-            int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_MOBS);
+            int enchantmentLevel = item.getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS);
             double multiplier = 1 + (enchantmentLevel * KillMobsEXP.LOOTING_MULTIPLIER);
             expToGive *= multiplier;
         }
@@ -70,7 +69,7 @@ public class EXPListeners implements Listener {
         RankupLevelsAPI.addExp(player, expToGive);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
         if (!BlockBreakEXP.ENABLED || event.isCancelled()) return;
 
@@ -85,10 +84,8 @@ public class EXPListeners implements Listener {
 
         ItemStack item = player.getItemInHand();
         if (BlockBreakEXP.FORTUNE_ENABLED && isValidItem(item)) {
-            ItemMeta meta = item.getItemMeta();
-            int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
+            int enchantmentLevel = item.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
             double multiplier = 1 + (enchantmentLevel * BlockBreakEXP.FORTUNE_MULTIPLIER);
-
             expToGive *= multiplier;
         }
 
