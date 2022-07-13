@@ -35,8 +35,16 @@ public class EXPListeners implements Listener {
         if (farmMob == null) return;
 
         Player player = (Player) event.getDamager();
-        double expAmount = farmMob.getExpAmount();
-        RankupLevelsAPI.addExp(player, expAmount);
+        double expToGive = farmMob.getExpAmount();
+        ItemStack item = player.getItemInHand();
+        if (DamageMobsEXP.LOOTING_ENABLED && isValidItem(item)) {
+            ItemMeta meta = item.getItemMeta();
+            int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_MOBS);
+            double multiplier = 1 + enchantmentLevel * DamageMobsEXP.LOOTING_MULTIPLIER;
+            expToGive *= multiplier;
+        }
+
+        RankupLevelsAPI.addExp(player, expToGive);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -50,8 +58,16 @@ public class EXPListeners implements Listener {
         FarmMob farmMob = KillMobsEXP.MOBS.get(entityType);
         if (farmMob == null) return;
 
-        double expAmount = farmMob.getExpAmount();
-        RankupLevelsAPI.addExp(player, expAmount);
+        double expToGive = farmMob.getExpAmount();
+        ItemStack item = player.getItemInHand();
+        if (KillMobsEXP.LOOTING_ENABLED && isValidItem(item)) {
+            ItemMeta meta = item.getItemMeta();
+            int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_MOBS);
+            double multiplier = 1 + (enchantmentLevel * KillMobsEXP.LOOTING_MULTIPLIER);
+            expToGive *= multiplier;
+        }
+
+        RankupLevelsAPI.addExp(player, expToGive);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -71,9 +87,9 @@ public class EXPListeners implements Listener {
         if (BlockBreakEXP.FORTUNE_ENABLED && isValidItem(item)) {
             ItemMeta meta = item.getItemMeta();
             int enchantmentLevel = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
-            double fortuneMultiplier = enchantmentLevel > 0 ? (enchantmentLevel * BlockBreakEXP.FORTUNE_MULTIPLIER) : 1;
+            double multiplier = 1 + (enchantmentLevel * BlockBreakEXP.FORTUNE_MULTIPLIER);
 
-            expToGive += expToGive * fortuneMultiplier;
+            expToGive += multiplier;
         }
 
         RankupLevelsAPI.addExp(player, expToGive);

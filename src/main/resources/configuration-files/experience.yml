@@ -2,7 +2,7 @@ Block-Break:
   enabled: true
   fortune:
     enabled: true
-    multiplier: 0.15 # multiplier * fortune
+    multiplier: 0.15 # exp * (1 + multiplier)
   disabled-worlds:
     - 'plotworld'
   blocks:
@@ -15,12 +15,18 @@ Enchantment-Table:
 
 Damage-Mobs:
   enabled: true
+  looting:
+    enabled: true
+    multiplier: 0.25 # exp * (1 + multiplier)
   mobs:
-    CHICKEN: 3
-    COW: 10
+    CHICKEN: 15
+    COW: 40
 
 Kill-Mobs:
   enabled: true
+  looting:
+    enabled: true
+    multiplier: 0.25 # exp * (1 + multiplier)
   mobs:
-    CHICKEN: 8
-    COW: 25
+    CHICKEN: 75
+    COW: 200
