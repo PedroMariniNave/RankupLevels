@@ -94,11 +94,13 @@ public class ClothesItem implements Serializable {
             String[] placeholders = new String[] {
                     "{level}",
                     "{bonus}",
+                    "{percentage}",
                     "{progress}"
             };
             String[] replacers = new String[] {
                     NumberFormatter.getInstance().formatThousand(level),
                     NumberFormatter.getInstance().formatDecimal(bonus, CLOTHES_DIGITS),
+                    NumberFormatter.getInstance().formatDecimal(progress, 2),
                     progressDisplay
             };
 
