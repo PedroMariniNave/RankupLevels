@@ -58,7 +58,10 @@ public class RankupLevelsCmd implements CommandExecutor {
                     if (percentage <= 0) break;
                     if (percentage > 100) percentage = 100;
 
+                    amount = args.length > 3 ? NumberFormatter.getInstance().filter(args[3]) : BigInteger.ONE;
+
                     ItemStack item = Items.getExpPercentageItem(percentage);
+                    item.setAmount(amount.intValue());
                     giveItem(target, item);
                     return true;
             }
