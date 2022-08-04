@@ -66,13 +66,6 @@ public class PlayerGeneralListeners implements Listener {
 
         handleNewLevelInfoMethods(newLevelInfo, placeholders, replacers);
 
-        if (THUNDER_ENABLED) {
-            player.getWorld().spigot().strikeLightningEffect(player.getLocation(), SILENT_THUNDER_ENABLED);
-            if (DOUBLE_THUNDER_ENABLED) {
-                player.getWorld().spigot().strikeLightningEffect(player.getLocation(), SILENT_THUNDER_ENABLED);
-            }
-        }
-
         player.sendTitle(Titles.RANK_UP[0], Titles.RANK_UP[1]);
         SoundProperties soundProperties = Sounds.RANK_UP;
         if (soundProperties != null && soundProperties.isEnabled()) {
@@ -112,12 +105,15 @@ public class PlayerGeneralListeners implements Listener {
             ClothesItem newClothesItem = new ClothesItem(newClothes, newClothes.getSimilarItem(item), totalXp);
             double oldBonus = originalClothesItem.getTotalBonus();
             double newBonus = newClothesItem.getTotalBonus();
+            double oldVisualBonus = originalClothesItem.getClothes().getBonusPerLevel();
+            double newVisualBonus = newClothesItem.getClothes().getBonusPerLevel();
             String[] placeholders = new String[]{
-                    "{old_level}", "{new_level}", "{old_bonus}", "{new_bonus}"
+                    "{old_level}", "{new_level}", "{old_bonus}", "{new_bonus}", "{old_visual_bonus}", "{new_visual_bonus}"
             };
             String[] replacers = new String[]{
                     NumberFormatter.getInstance().formatThousand(oldLevel), NumberFormatter.getInstance().formatThousand(newLevel),
-                    NumberFormatter.getInstance().formatDecimal(oldBonus, CLOTHES_DIGITS), NumberFormatter.getInstance().formatDecimal(newBonus, CLOTHES_DIGITS)
+                    NumberFormatter.getInstance().formatDecimal(oldBonus, CLOTHES_DIGITS), NumberFormatter.getInstance().formatDecimal(newBonus, CLOTHES_DIGITS),
+                    NumberFormatter.getInstance().formatDecimal(oldVisualBonus, CLOTHES_DIGITS), NumberFormatter.getInstance().formatDecimal(newVisualBonus, CLOTHES_DIGITS)
             };
 
             boolean playEffects = newLevelMessages.add(newLevel);

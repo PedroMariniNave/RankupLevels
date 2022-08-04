@@ -23,10 +23,8 @@ Settings:
   max-level: 500
   progress-digits: 2
   clothes-digits: 4
-  thunder: # raio quando o jogador evoluir de nível
-    enabled: true
-    double: true # double thunder = efeito sonoro extra
-    silent: false
+  stack-amount-metadata: 'MobKilledAmount' # Metadata que possui o stack dos mobs
+  killer-metadata: 'MobKiller' # útil quando o plugin não conseguir encontrar o jogador
 
 #
 # Placeholders disponíveis:
@@ -95,8 +93,8 @@ Messages:
     - ''
   new-clothes:
     - ''
-    - ' &eUm novo visual foi adicionado a sua roupa!'
-    - ' &7Chique... E confortável.'
+    - '&7Um novo visual foi aplicado a sua roupa!'
+    - '&7Bônus a cada nível: &f&m{old_visual_bonus}x&8 ➟ &f{new_visual_bonus}&7.'
     - ''
   cooldown: '&cAguarde {cooldown} segundos antes de pegar outra roupa!'
 

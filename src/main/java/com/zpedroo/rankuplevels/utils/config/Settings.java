@@ -32,9 +32,7 @@ public class Settings {
 
     public static final int CLOTHES_DIGITS = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.clothes-digits");
 
-    public static final boolean THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.enabled");
+    public static final String STACK_AMOUNT_METADATA = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.stack-amount-metadata");
 
-    public static final boolean DOUBLE_THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.double");
-
-    public static final boolean SILENT_THUNDER_ENABLED = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.thunder.silent");
+    public static final String KILLER_METADATA = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.killer-metadata");
 }

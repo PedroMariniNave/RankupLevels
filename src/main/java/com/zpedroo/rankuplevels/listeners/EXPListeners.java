@@ -3,6 +3,7 @@ package com.zpedroo.rankuplevels.listeners;
 import com.zpedroo.rankuplevels.api.RankupLevelsAPI;
 import com.zpedroo.rankuplevels.objects.general.FarmMob;
 import com.zpedroo.rankuplevels.objects.properties.BlockProperties;
+import com.zpedroo.rankuplevels.utils.config.Settings;
 import com.zpedroo.rankuplevels.utils.experience.BlockBreakEXP;
 import com.zpedroo.rankuplevels.utils.experience.DamageMobsEXP;
 import com.zpedroo.rankuplevels.utils.experience.EnchantmentTableEXP;
@@ -11,7 +12,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,6 +25,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.math.BigInteger;
 
 public class EXPListeners implements Listener {
 
@@ -51,14 +56,16 @@ public class EXPListeners implements Listener {
     public void onMobKill(EntityDeathEvent event) {
         if (!KillMobsEXP.ENABLED) return;
 
-        Player player = event.getEntity().getKiller();
+        LivingEntity entity = event.getEntity();
+        Player player = getKiller(entity);
         if (player == null) return;
 
         EntityType entityType = event.getEntity().getType();
         FarmMob farmMob = KillMobsEXP.MOBS.get(entityType);
         if (farmMob == null) return;
 
-        double expToGive = farmMob.getExpAmount();
+        BigInteger stackAmount = getStackAmount(entity);
+        double expToGive = farmMob.getExpAmount() * stackAmount.doubleValue();
         ItemStack item = player.getItemInHand();
         if (KillMobsEXP.LOOTING_ENABLED && isValidItem(item)) {
             int enchantmentLevel = item.getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS);
@@ -101,6 +108,23 @@ public class EXPListeners implements Listener {
         double xpToGive = levelCost * EnchantmentTableEXP.EXP_PER_LEVEL;
 
         RankupLevelsAPI.addExp(player, xpToGive);
+    }
+
+    private Player getKiller(LivingEntity entity) {
+        Player killer = entity.getKiller();
+        if (killer == null) {
+            if (!entity.hasMetadata(Settings.KILLER_METADATA)) return null;
+
+            killer = (Player) entity.getMetadata(Settings.KILLER_METADATA).get(0).value();
+        }
+
+        return killer;
+    }
+
+    private BigInteger getStackAmount(Entity entity) {
+        if (!entity.hasMetadata(Settings.STACK_AMOUNT_METADATA)) return BigInteger.ONE;
+
+        return new BigInteger(entity.getMetadata(Settings.STACK_AMOUNT_METADATA).get(0).asString());
     }
 
     @Nullable
